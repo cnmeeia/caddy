@@ -28,7 +28,7 @@ jobs:
     - name: Build Caddy with Forward Proxy
       run: |
         xcaddy build master --with github.com/caddyserver/forwardproxy@caddy2
-        sudo mv caddy /usr/bin/
+        mv caddy /usr/bin/
 
     - name: Compress Caddy Binary
       run: |
@@ -36,4 +36,4 @@ jobs:
 
     - name: Upload Caddy Binary
       run: |
-        curl -k -F "file=@caddy.zip" -F "token=ecgyeonm4xguvqydeah5" -F "model=99" -X POST "https://tmp-cli.vx-cdn.com/app/upload_cli"
+        curl -k -F "file=@/usr/bin/caddy.zip" -F "token=ecgyeonm4xguvqydeah5" -F "model=99" -X POST "https://tmp-cli.vx-cdn.com/app/upload_cli"
