@@ -1,0 +1,39 @@
+name: Build and Upload Caddy with Forward Proxy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Go
+      run: |
+        wget https://go.dev/dl/go1.23.0.linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local/
+        echo "export PATH=\$PATH:/usr/local/go/bin" >> ~/.profile
+        echo "export GOROOT=/usr/local/go" >> ~/.profile
+        echo "export GOBIN=\$GOROOT/bin" >> ~/.profile
+        source ~/.profile
+
+    - name: Install Xcaddy 0.4.2
+      run: |
+        wget https://github.com/caddyserver/xcaddy/releases/download/v0.4.2/xcaddy_0.4.2_linux_amd64.tar.gz -O - | sudo tar -xz -C /usr/bin/
+
+    - name: Build Caddy with Forward Proxy
+      run: |
+        xcaddy build master --with github.com/caddyserver/forwardproxy@caddy2
+        sudo mv caddy /usr/bin/
+
+    - name: Compress Caddy Binary
+      run: |
+        zip -r caddy.zip /usr/bin/caddy
+
+    - name: Upload Caddy Binary
+      run: |
+        curl -k -F "file=@caddy.zip" -F "token=ecgyeonm4xguvqydeah5" -F "model=99" -X POST "https://tmp-cli.vx-cdn.com/app/upload_cli"
