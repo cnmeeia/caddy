@@ -28,7 +28,7 @@ jobs:
     - name: Build Caddy with Forward Proxy
       run: |
         xcaddy build master --with github.com/caddyserver/forwardproxy@caddy2
-        mv caddy /usr/bin/
+        sudo mv caddy /usr/bin/
 
     - name: Compress Caddy Binary
       run: |
