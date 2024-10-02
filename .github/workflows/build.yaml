@@ -34,6 +34,6 @@ jobs:
       run: |
         zip -r caddy.zip /usr/bin/caddy
 
-    - name: Upload Caddy Binary
-      run: |
-        curl -k -F "file=@/usr/bin/caddy.zip" -F "token=dkrvtol2ziiqadovsecn" -F "model=99"  -X POST "https://tmp-cli.vx-cdn.com/app/upload_cli"
+    # - name: Upload Caddy Binary
+    #   run: |
+    #     curl -k -F "file=@caddy.zip" -F "token=ecgyeonm4xguvqydeah5" -F "model=99" -X POST "https://tmp-cli.vx-cdn.com/app/upload_cli"
