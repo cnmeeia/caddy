@@ -35,7 +35,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v0.4.2
-          release_name: Caddy v0.4.2
+          name: Caddy v0.4.2
           draft: false
           prerelease: false
         env:
